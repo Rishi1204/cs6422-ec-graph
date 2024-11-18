@@ -51,6 +51,64 @@ Enter your choice:
 
 ---
 
+# Overview of CSV Files
+
+The program uses three CSV files to populate the graph database for the social media network. Each CSV file corresponds to a specific type of data: users, posts, and connections.
+
+---
+
+## 1. **`users.csv`**
+This file defines all the user nodes in the graph. Each user is uniquely identified by their name and can have various attributes.
+
+### **Columns**:
+- `name`: The name of the user (e.g., "Alice").
+- `type`: Always set to `"user"` to indicate the node represents a user.
+- Other optional attributes:
+  - `age`: The age of the user.
+  - `city`: The city where the user resides.
+  - `likes`: (Optional) The total number of likes the user has received for their posts.
+
+### **Example**:
+```csv
+name,type,age,city,likes
+Alice,user,25,New York,150
+Bob,user,30,San Francisco,120
+Eve,user,28,Los Angeles,175
+```
+
+## 2. **`posts.csv`**
+This file defines the posts in the network and associates them with users. Posts are modeled as separate nodes in the graph.
+
+### **Columns**:
+- `id`: A unique identifier for the post (e.g., "P1").
+- `user`: The name of the user who created the post (matches a `name` in `users.csv`).
+- `type`: Always set to `"post"` to indicate the node represents a post.
+- `likes`: The number of likes the post has received.
+
+### **Example**:
+```csv
+id,user,type,likes
+P1,Alice,post,50
+P2,Bob,post,30
+P3,Eve,post,75
+```
+
+## 3. **`connections.csv`**
+This file defines the connections between users, such as friendships or professional relationships. Each connection is modeled as an edge in the graph.
+
+### **Columns**:
+- `source`: The name of the source user in the connection (matches a `name` in `users.csv`).
+- `target`: The name of the target user in the connection (matches a `name` in `users.csv`).
+- `relationship`: The type of connection (`"friend"` or `"colleague"`).
+
+### **Example**:
+```csv
+source,target,relationship
+Alice,Bob,friend
+Bob,Eve,colleague
+Eve,Alice,friend
+```
+
 ## Functions
 
 ### **1. Find nth-Degree Connections**
@@ -88,3 +146,7 @@ This function calculates the number of colleagues and friends a user has and agg
      - `friends`: List of friends and their total likes.
 - Output:
   - A map with two lists: `colleagues` and `friends`.
+
+  ### Representation of the Data in the Graph
+
+  <img width="802" alt="Screenshot 2024-11-17 at 10 22 11 PM" src="https://github.com/user-attachments/assets/e57eca07-fa7f-40a6-bf5a-eacea6f62320">
